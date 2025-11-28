@@ -1,25 +1,27 @@
 package com.example.backend.entity;
 
 import com.example.backend.entity.photo.*;
+import com.example.backend.entity.utility.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.security.AuthProvider;
 import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
 
 @Entity(name = "users")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
 
     @Column
     private String email;
@@ -29,6 +31,9 @@ public class User {
 
     @Column
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany
     private List<Photo> photos;
